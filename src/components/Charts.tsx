@@ -14,9 +14,9 @@ import {
 } from "devextreme-react/chart";
 
 export const Charts = () => {
-	const { data } = useAppSelector((state) => state.statReducer);
-
-	const dataSource = data
+	const { data, dataFiltre } = useAppSelector((state) => state.statReducer);
+	const { country } = useAppSelector((store) => store.countryReducer);
+	const dataSource = dataFiltre
 		.map((item) => {
 			return {
 				state: item.countryRegion,
