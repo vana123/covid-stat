@@ -25,7 +25,9 @@ export const GeneralInformationForThePeriod = () => {
 
 	return (
 		<div className="GeneralInformationForThePeriod">
-			<FormSelectDate />
+			<div className="Form">
+				<FormSelectDate />
+			</div>
 			<Charts />
 		</div>
 	);

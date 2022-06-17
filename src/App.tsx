@@ -1,9 +1,11 @@
-import 'devextreme/dist/css/dx.common.css';
-import 'devextreme/dist/css/dx.light.css';
+import "devextreme/dist/css/dx.common.css";
+import "devextreme/dist/css/dx.light.css";
 import { GeneralInformation } from "./pages/GeneralInformation";
 import { GeneralInformationForThePeriod } from "./pages/GeneralInformationForThePeriod";
 import { GeneralInformationForThePeriodCountri } from "./pages/GeneralInformationForThePeriodСountry";
 import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
+
+import "./Style.scss";
 
 function App() {
 	return (
@@ -12,7 +14,7 @@ function App() {
 				<nav className="NavBar">
 					<NavLink to="/*">Main</NavLink>
 					<NavLink to="/date">Date</NavLink>
-					<NavLink to="/countri">Countri</NavLink>
+					<NavLink to="/country">Country</NavLink>
 				</nav>
 
 				<Routes>
@@ -22,7 +24,7 @@ function App() {
 						element={<GeneralInformationForThePeriod />}
 					/>
 					<Route
-						path="/countri"
+						path="/country"
 						element={<GeneralInformationForThePeriodCountri />}
 					/>
 				</Routes>

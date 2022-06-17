@@ -24,14 +24,8 @@ export const FormSelectCountry = () => {
 				type="text"
 				value={country}
 				onChange={ChangeCountriHandler}
+				placeholder={"🔎"}
 			/>
-			<button
-				onClick={() => {
-					dispatch(statSlise.actions.statSelectCountry(country));
-				}}
-			>
-				select
-			</button>
 		</div>
 	);
 };
