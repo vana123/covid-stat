@@ -1,6 +1,5 @@
 import React from "react";
 import { useAppSelector } from "../hooks/redux";
-
 import {
 	Chart,
 	Series,
@@ -12,10 +11,31 @@ import {
 	Tooltip,
 	Border,
 } from "devextreme-react/chart";
+import { useGetStatQuery } from "../service/statService";
+import { useEffect } from "react";
+import { IStat } from "../types/stat";
+import { count } from "console";
+
+function filterCountru(arr: IStat[], country: string) {
+	return arr.filter((item) => {
+		return item.countryRegion.toLowerCase().includes(country.toLowerCase());
+	});
+}
 
 export const Charts = () => {
-	const { data, dataFiltre } = useAppSelector((state) => state.statReducer);
-	const { country } = useAppSelector((store) => store.countryReducer);
+	const { date } = useAppSelector((state) => state.dateReducer);
+	const { isError, isLoading, data } = useGetStatQuery(date);
+	const { country } = useAppSelector((state) => state.countryReducer);
+	let dataFiltre = data ? filterCountru(data, country) : [];
+
+	useEffect(() => {
+		if (data) {
+			dataFiltre = filterCountru(data, country);
+		} else {
+			dataFiltre = [];
+		}
+	}, [data, country]);
+
 	const dataSource = dataFiltre
 		.map((item) => {
 			return {
@@ -26,7 +46,7 @@ export const Charts = () => {
 			};
 		})
 		.slice(0, 15);
-
+	console.log(dataSource);
 	return (
 		<div className="Charts">
 			<Chart id="chart" title="Covid" dataSource={dataSource}>

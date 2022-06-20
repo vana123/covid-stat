@@ -1,17 +1,20 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { statReducer } from "./reducers/stat";
 import { dateReducer } from "./reducers/Date";
 import { countryReducer } from "./reducers/Country";
+import { statAPI } from "../service/statService";
 
 const rootReducer = combineReducers({
-	statReducer,
 	dateReducer,
 	countryReducer,
+	[statAPI.reducerPath]: statAPI.reducer,
 });
 
 export const setupStore = () => {
 	return configureStore({
 		reducer: rootReducer,
+
+		middleware: (getDefaultMiddleware) =>
+			getDefaultMiddleware().concat(statAPI.middleware),
 	});
 };
 
