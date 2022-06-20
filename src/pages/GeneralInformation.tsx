@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { Charts } from "../components/Charts";
 import { countrySlise } from "../store/reducers/Country";
 import { dateSlise } from "../store/reducers/Date";
+import { BarCharts } from "../components/BarCharts";
 
 export const GeneralInformation = () => {
 	const dispatch = useAppDispatch();
@@ -20,6 +21,7 @@ export const GeneralInformation = () => {
 	return (
 		<div className="GeneralInformation">
 			<Charts />
+			<BarCharts />
 		</div>
 	);
 };

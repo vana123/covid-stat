@@ -3,6 +3,7 @@ import { FormSelectCountry } from "../components/FormSelectCountry";
 import { FormSelectDate } from "../components/FormSelectdate";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { Charts } from "../components/Charts";
+import { BarCharts } from "../components/BarCharts";
 
 export const GeneralInformationForThePeriodCountri = () => {
 	const dispatch = useAppDispatch();
@@ -15,6 +16,7 @@ export const GeneralInformationForThePeriodCountri = () => {
 				<FormSelectCountry />
 			</div>
 			<Charts />
+			<BarCharts />
 		</div>
 	);
 };

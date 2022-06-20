@@ -6,6 +6,7 @@ import { GeneralInformationForThePeriodCountri } from "./pages/GeneralInformatio
 import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 
 import "./Style.scss";
+import { BarCharts } from "./components/BarCharts";
 
 function App() {
 	return (
@@ -16,7 +17,6 @@ function App() {
 					<NavLink to="/date">Date</NavLink>
 					<NavLink to="/country">Country</NavLink>
 				</nav>
-
 				<Routes>
 					<Route path="/*" element={<GeneralInformation />} />
 					<Route

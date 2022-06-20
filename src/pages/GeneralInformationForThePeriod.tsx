@@ -3,6 +3,7 @@ import { FormSelectDate } from "../components/FormSelectdate";
 import { useAppDispatch } from "../hooks/redux";
 import { Charts } from "../components/Charts";
 import { countrySlise } from "../store/reducers/Country";
+import { BarCharts } from "../components/BarCharts";
 
 export const GeneralInformationForThePeriod = () => {
 	const dispatch = useAppDispatch();
@@ -17,7 +18,7 @@ export const GeneralInformationForThePeriod = () => {
 				<FormSelectDate />
 			</div>
 			<Charts />
-			{/* <RtkQetyTest /> */}
+			<BarCharts />
 		</div>
 	);
 };
