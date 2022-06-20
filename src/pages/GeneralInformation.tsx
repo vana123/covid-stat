@@ -10,7 +10,7 @@ export const GeneralInformation = () => {
 	useEffect(() => {
 		const today = new Date();
 		dispatch(
-			dateSlise.actions.chenge(
+			dateSlise.actions.chengeInput(
 				`${today.getFullYear()}-${today.getMonth()}-${today.getDay()}`
 			)
 		);

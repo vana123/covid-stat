@@ -14,7 +14,6 @@ import {
 import { useGetStatQuery } from "../service/statService";
 import { useEffect } from "react";
 import { IStat } from "../types/stat";
-import { count } from "console";
 
 function filterCountru(arr: IStat[], country: string) {
 	return arr.filter((item) => {
