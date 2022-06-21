@@ -9,10 +9,11 @@ import {
 	Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { useAppSelector } from "../hooks/redux";
+import { useAppSelector, useAppDispatch } from "../hooks/redux";
 import { useEffect } from "react";
 import { IStat } from "../types/stat";
 import { useGetStatQuery } from "../service/statService";
+import { statFilterSlice } from "../store/reducers/StatFirlter";
 
 ChartJS.register(
 	CategoryScale,
@@ -43,6 +44,7 @@ function filterCountru(arr: IStat[], country: string) {
 }
 
 export const BarCharts = () => {
+	const dispatch = useAppDispatch();
 	const { date } = useAppSelector((state) => state.dateReducer);
 	const { isError, isLoading, data } = useGetStatQuery(date);
 	const { country } = useAppSelector((state) => state.countryReducer);
@@ -51,8 +53,11 @@ export const BarCharts = () => {
 	useEffect(() => {
 		if (data) {
 			dataFiltre = filterCountru(data, country).slice(0, 15);
+			dispatch(statFilterSlice.actions.setStatData(data));
+			dispatch(statFilterSlice.actions.filterStatData({ data, country }));
 		} else {
 			dataFiltre = [];
+			dispatch(statFilterSlice.actions.setStatData([]));
 		}
 	}, [data, country]);
 
@@ -68,14 +73,14 @@ export const BarCharts = () => {
 				data: dataFiltre.map((item) => {
 					return Number(item.confirmed);
 				}),
-				backgroundColor: "rgba(255, 99, 132, 0.5)",
+				backgroundColor: "rgba(53, 162, 235, 0.5)",
 			},
 			{
 				label: "deaths",
 				data: dataFiltre.map((item) => {
 					return Number(item.deaths);
 				}),
-				backgroundColor: "rgba(53, 162, 235, 0.5)",
+				backgroundColor: "rgba(255, 99, 132, 0.5)",
 			},
 			{
 				label: "recovered",

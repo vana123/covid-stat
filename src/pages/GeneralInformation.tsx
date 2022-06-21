@@ -4,6 +4,7 @@ import { Charts } from "../components/Charts";
 import { countrySlise } from "../store/reducers/Country";
 import { dateSlise } from "../store/reducers/Date";
 import { BarCharts } from "../components/BarCharts";
+import { statFilterSlice } from "../store/reducers/StatFirlter";
 
 export const GeneralInformation = () => {
 	const dispatch = useAppDispatch();

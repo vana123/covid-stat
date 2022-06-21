@@ -2,10 +2,12 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { dateReducer } from "./reducers/Date";
 import { countryReducer } from "./reducers/Country";
 import { statAPI } from "../service/statService";
+import { statFilterReducer } from "./reducers/StatFirlter";
 
 const rootReducer = combineReducers({
 	dateReducer,
 	countryReducer,
+	statFilterReducer,
 	[statAPI.reducerPath]: statAPI.reducer,
 });
 
