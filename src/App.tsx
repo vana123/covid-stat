@@ -6,7 +6,6 @@ import { GeneralInformationForThePeriodCountri } from "./pages/GeneralInformatio
 import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 
 import "./Style.scss";
-import { BarCharts } from "./components/BarCharts";
 
 function App() {
 	return (
