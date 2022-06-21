@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IStat } from "../../types/stat";
+import { uniqBy, includes, slice } from "lodash";
 
 interface IstatFilter {
 	statData: IStat[];
@@ -14,19 +15,36 @@ export const statFilterSlice = createSlice({
 	initialState,
 	reducers: {
 		setStatData(state, action: PayloadAction<IStat[]>) {
-			state.statData = action.payload;
+			state.statData = uniqBy(action.payload, "countryRegion");
 		},
 		filterStatData(
 			state,
 			action: PayloadAction<{ data: IStat[]; country: string }>
 		) {
-			state.statData = action.payload.data
-				.filter((item) => {
-					return item.countryRegion
-						.toLowerCase()
-						.includes(action.payload.country.toLowerCase());
-				})
-				.slice(0, 15);
+			state.statData = uniqBy(
+				action.payload.data
+					.filter((item) => {
+						return item.countryRegion
+							.toLowerCase()
+							.includes(action.payload.country.toLowerCase());
+					})
+					.slice(0, 15),
+				"countryRegion"
+			);
+		},
+		SelectCountry(
+			state,
+			action: PayloadAction<{ data: IStat[]; countrys: string[] }>
+		) {
+			state.statData = uniqBy(
+				action.payload.data.filter((item) => {
+					return includes(
+						action.payload.countrys,
+						item.countryRegion
+					);
+				}),
+				"countryRegion"
+			);
 		},
 	},
 });

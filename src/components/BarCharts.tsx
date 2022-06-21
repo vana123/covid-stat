@@ -37,10 +37,6 @@ export const options = {
 };
 
 export const BarCharts = () => {
-	const dispatch = useAppDispatch();
-	const { date } = useAppSelector((state) => state.dateReducer);
-	const { isError, isLoading, data } = useGetStatQuery(date);
-	const { country } = useAppSelector((state) => state.countryReducer);
 	const { statData } = useAppSelector((state) => state.statFilterReducer);
 
 	const labels = statData.map((item) => {

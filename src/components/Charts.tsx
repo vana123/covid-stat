@@ -12,33 +12,20 @@ import {
 	Border,
 } from "devextreme-react/chart";
 import { useGetStatQuery } from "../service/statService";
-import { useEffect } from "react";
 import { IStat } from "../types/stat";
 
-function filterCountru(arr: IStat[], country: string) {
-	return arr.filter((item) => {
-		return item.countryRegion.toLowerCase().includes(country.toLowerCase());
-	});
-}
-
 export const Charts = () => {
-	const { date } = useAppSelector((state) => state.dateReducer);
-	const { isError, isLoading, data } = useGetStatQuery(date);
-	const { country } = useAppSelector((state) => state.countryReducer);
-
 	const { statData } = useAppSelector((state) => state.statFilterReducer);
 
-	const dataSource = statData
-		.map((item) => {
-			return {
-				state: item.countryRegion,
-				recovered: Number(item.recovered),
-				deaths: Number(item.deaths),
-				confirmed: Number(item.confirmed),
-			};
-		})
-		.slice(0, 15);
-	console.log(dataSource);
+	const dataSource = statData.map((item) => {
+		return {
+			state: item.countryRegion,
+			recovered: Number(item.recovered),
+			deaths: Number(item.deaths),
+			confirmed: Number(item.confirmed),
+		};
+	});
+
 	return (
 		<div className="Charts">
 			<Chart id="chart" title="Covid" dataSource={dataSource}>
