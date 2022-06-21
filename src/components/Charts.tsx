@@ -25,17 +25,10 @@ export const Charts = () => {
 	const { date } = useAppSelector((state) => state.dateReducer);
 	const { isError, isLoading, data } = useGetStatQuery(date);
 	const { country } = useAppSelector((state) => state.countryReducer);
-	let dataFiltre = data ? filterCountru(data, country) : [];
 
-	useEffect(() => {
-		if (data) {
-			dataFiltre = filterCountru(data, country);
-		} else {
-			dataFiltre = [];
-		}
-	}, [data, country]);
+	const { statData } = useAppSelector((state) => state.statFilterReducer);
 
-	const dataSource = dataFiltre
+	const dataSource = statData
 		.map((item) => {
 			return {
 				state: item.countryRegion,

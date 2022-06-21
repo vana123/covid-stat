@@ -43,15 +43,6 @@ export const BarCharts = () => {
 	const { country } = useAppSelector((state) => state.countryReducer);
 	const { statData } = useAppSelector((state) => state.statFilterReducer);
 
-	useEffect(() => {
-		if (data) {
-			dispatch(statFilterSlice.actions.setStatData(data));
-			dispatch(statFilterSlice.actions.filterStatData({ data, country }));
-		} else {
-			dispatch(statFilterSlice.actions.setStatData([]));
-		}
-	}, [data, country]);
-
 	const labels = statData.map((item) => {
 		return item.countryRegion;
 	});
