@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react'
+
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { Charts } from '../components/Charts'
+import { BarCharts } from '../components/BarCharts'
 import { countrySlise } from '../store/reducers/Country'
 import { dateSlise } from '../store/reducers/Date'
-import { BarCharts } from '../components/BarCharts'
 import { statFilterSlice } from '../store/reducers/StatFirlter'
 import { useGetStatQuery } from '../service/statService'
+import { COMBINEDKEY } from '../Constants/COUNTRIES'
 
-export const GeneralInformation = () => {
+export const GeneralInformation: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const { country } = useAppSelector((state) => state.countryReducer)
   const { date } = useAppSelector((state) => state.dateReducer)
@@ -23,8 +25,7 @@ export const GeneralInformation = () => {
 
   useEffect(() => {
     if (data) {
-      const countrys = ['Ukraine', 'Poland', 'United Kingdom', 'Estonia']
-      dispatch(statFilterSlice.actions.SelectCountry({ data, countrys }))
+      dispatch(statFilterSlice.actions.SelectCountry({ data, countrys: COMBINEDKEY }))
     } else {
       dispatch(statFilterSlice.actions.setStatData([]))
     }

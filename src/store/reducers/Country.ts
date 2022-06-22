@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface dateState {
+type dateState = {
   countryInput: string
   country: string
 }

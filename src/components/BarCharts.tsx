@@ -8,12 +8,13 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js'
+
 import { Bar } from 'react-chartjs-2'
 import { useAppSelector } from '../hooks/redux'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
-export const options = {
+export const OPTIONS = {
   responsive: true,
   plugins: {
     legend: {
@@ -26,14 +27,14 @@ export const options = {
   },
 }
 
-export const BarCharts = () => {
+export const BarCharts: React.FC = (): JSX.Element => {
   const { statData } = useAppSelector((state) => state.statFilterReducer)
 
   const labels = statData.map((item) => {
-    return item.countryRegion
+    return item.combinedKey
   })
 
-  const dataChart = {
+  const DATACHART = {
     labels,
     datasets: [
       {
@@ -60,5 +61,5 @@ export const BarCharts = () => {
     ],
   }
 
-  return <Bar options={options} data={dataChart} />
+  return <Bar options={OPTIONS} data={DATACHART} />
 }

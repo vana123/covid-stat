@@ -1,5 +1,4 @@
 import React from 'react'
-import { useAppSelector } from '../hooks/redux'
 import {
   Chart,
   Series,
@@ -11,12 +10,15 @@ import {
   Border,
 } from 'devextreme-react/chart'
 
-export const Charts = () => {
+import { useAppSelector } from '../hooks/redux'
+import { item } from '../types/devextremeItem'
+
+export const Charts: React.FC = (): JSX.Element => {
   const { statData } = useAppSelector((state) => state.statFilterReducer)
 
-  const dataSource = statData.map((item) => {
+  const DATASOURCE = statData.map((item) => {
     return {
-      state: item.countryRegion,
+      state: item.combinedKey,
       recovered: Number(item.recovered),
       deaths: Number(item.deaths),
       confirmed: Number(item.confirmed),
@@ -25,7 +27,7 @@ export const Charts = () => {
 
   return (
     <div className='Charts'>
-      <Chart id='chart' title='Covid' dataSource={dataSource}>
+      <Chart id='chart' title='Covid' dataSource={DATASOURCE}>
         <CommonSeriesSettings argumentField='state' type='stackedBar' />
         <Series valueField='deaths' name='Deaths' stack='male' color={'red'} />
         <Series valueField='confirmed' name='Confirmed' stack='male' color={'blue'} />
@@ -41,17 +43,15 @@ export const Charts = () => {
         >
           <Border visible={true} />
         </Legend>
-        {/* <Export enabled={true} /> */}
         <Tooltip enabled={true} />
       </Chart>
     </div>
   )
 }
 
-function customizeItems(items: any) {
-  const sortedItems: any = []
-
-  items.forEach((item: any) => {
+function customizeItems(items: item[]) {
+  const sortedItems: item[] = []
+  items.forEach((item: item) => {
     const startIndex = item.series.stack === 'male' ? 0 : 3
     sortedItems.splice(startIndex, 0, item)
   })

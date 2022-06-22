@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '../hooks/redux'
-import { countrySlise } from '../store/reducers/Country'
 import { useDebounce } from 'use-debounce'
 
-export const FormSelectCountry = () => {
+import { useAppDispatch, useAppSelector } from '../hooks/redux'
+import { countrySlise } from '../store/reducers/Country'
+
+export const FormSelectCountry: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const { countryInput } = useAppSelector((state) => state.countryReducer)
   const [value] = useDebounce(countryInput, 500)
 
-  const ChangeCountriHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeCountry = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(countrySlise.actions.inputChenge(e.target.value))
   }
 
@@ -18,7 +19,7 @@ export const FormSelectCountry = () => {
 
   return (
     <div className='FormSelectCountry'>
-      <input type='text' value={countryInput} onChange={ChangeCountriHandler} placeholder={'🔎'} />
+      <input type='text' value={countryInput} onChange={handleChangeCountry} placeholder={'🔎'} />
     </div>
   )
 }
