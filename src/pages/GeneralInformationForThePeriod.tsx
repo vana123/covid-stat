@@ -6,7 +6,7 @@ import { Charts } from '../components/Charts'
 import { BarCharts } from '../components/BarCharts'
 import { statFilterSlice } from '../store/reducers/StatFirlter'
 import { useGetStatQuery } from '../service/statService'
-import { COMBINEDKEY } from '../Constants/COUNTRIES'
+import { COMBINED_KEY } from '../Constants/COUNTRIES'
 
 export const GeneralInformationForThePeriod: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch()
@@ -16,7 +16,7 @@ export const GeneralInformationForThePeriod: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     if (data) {
-      dispatch(statFilterSlice.actions.SelectCountry({ data, countrys: COMBINEDKEY }))
+      dispatch(statFilterSlice.actions.SelectCountry({ data, countrys: COMBINED_KEY }))
     } else {
       dispatch(statFilterSlice.actions.setStatData([]))
     }

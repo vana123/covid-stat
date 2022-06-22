@@ -7,7 +7,7 @@ import { countrySlise } from '../store/reducers/Country'
 import { dateSlise } from '../store/reducers/Date'
 import { statFilterSlice } from '../store/reducers/StatFirlter'
 import { useGetStatQuery } from '../service/statService'
-import { COMBINEDKEY } from '../Constants/COUNTRIES'
+import { COMBINED_KEY } from '../Constants/COUNTRIES'
 
 export const GeneralInformation: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch()
@@ -25,7 +25,7 @@ export const GeneralInformation: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     if (data) {
-      dispatch(statFilterSlice.actions.SelectCountry({ data, countrys: COMBINEDKEY }))
+      dispatch(statFilterSlice.actions.SelectCountry({ data, countrys: COMBINED_KEY }))
     } else {
       dispatch(statFilterSlice.actions.setStatData([]))
     }

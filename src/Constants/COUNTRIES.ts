@@ -1,1 +1,1 @@
-export const COMBINEDKEY = ['Volyn Oblast, Ukraine', 'Poland', 'Estonia']
+export const COMBINED_KEY = ['Volyn Oblast, Ukraine', 'Poland', 'Estonia']
