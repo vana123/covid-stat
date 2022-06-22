@@ -5,9 +5,10 @@ type dateState = {
   dateInput: string
 }
 
+const today = new Date()
 const initialState: dateState = {
-  date: '2022-05-01',
-  dateInput: '2022-05-01',
+  date: `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`,
+  dateInput: `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`,
 }
 
 export const dateSlise = createSlice({

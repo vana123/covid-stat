@@ -18,7 +18,7 @@ export const GeneralInformation: React.FC = (): JSX.Element => {
   useEffect(() => {
     const today = new Date()
     dispatch(
-      dateSlise.actions.chengeInput(`${today.getFullYear()}-${today.getMonth()}-${today.getDay()}`),
+      dateSlise.actions.chengeInput(`${today.getFullYear()}-${today.getMonth()}-${today.getDate()-1}`),
     )
     dispatch(countrySlise.actions.setCountry(''))
   }, [])
