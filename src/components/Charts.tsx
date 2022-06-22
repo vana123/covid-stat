@@ -16,7 +16,7 @@ import { item } from '../types/devextremeItem'
 export const Charts: React.FC = (): JSX.Element => {
   const { statData } = useAppSelector((state) => state.statFilterReducer)
 
-  const DATASOURCE = statData.map((item) => {
+  const DataSource = statData.map((item) => {
     return {
       state: item.combinedKey,
       recovered: Number(item.recovered),
@@ -27,7 +27,7 @@ export const Charts: React.FC = (): JSX.Element => {
 
   return (
     <div className='Charts'>
-      <Chart id='chart' title='Covid' dataSource={DATASOURCE}>
+      <Chart id='chart' title='Covid' dataSource={DataSource}>
         <CommonSeriesSettings argumentField='state' type='stackedBar' />
         <Series valueField='deaths' name='Deaths' stack='male' color={'red'} />
         <Series valueField='confirmed' name='Confirmed' stack='male' color={'blue'} />

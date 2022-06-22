@@ -34,7 +34,7 @@ export const BarCharts: React.FC = (): JSX.Element => {
     return item.combinedKey
   })
 
-  const DATACHART = {
+  const DataChart = {
     labels,
     datasets: [
       {
@@ -61,5 +61,5 @@ export const BarCharts: React.FC = (): JSX.Element => {
     ],
   }
 
-  return <Bar options={OPTIONS} data={DATACHART} />
+  return <Bar options={OPTIONS} data={DataChart} />
 }
