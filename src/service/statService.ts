@@ -1,13 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { IStat } from '../types/stat'
+
+import { TStat } from '../types/stat'
+import { apiUrl } from './../Constants/api'
 
 export const statAPI = createApi({
   reducerPath: 'statAPI',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://covid19.mathdro.id/api',
+    baseUrl: apiUrl,
   }),
   endpoints: (build) => ({
-    getStat: build.query<IStat[], string>({
+    getStat: build.query<TStat[], string>({
       query: (date) => ({
         url: `/daily/${date}`,
       }),

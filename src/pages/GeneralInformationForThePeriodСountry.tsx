@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react'
+
 import { FormSelectCountry } from '../components/FormSelectCountry'
 import { FormSelectDate } from '../components/FormSelectdate'
-import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { Charts } from '../components/Charts'
 import { BarCharts } from '../components/BarCharts'
+import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { statFilterSlice } from '../store/reducers/StatFirlter'
 import { useGetStatQuery } from '../service/statService'
 
-export const GeneralInformationForThePeriodCountri = () => {
+export const GeneralInformationForThePeriodCountri: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const { country } = useAppSelector((state) => state.countryReducer)
   const { date } = useAppSelector((state) => state.dateReducer)
