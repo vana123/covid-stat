@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import React from 'react';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom'
 
 import { GeneralInformation } from './pages/GeneralInformation'
@@ -15,10 +15,7 @@ const ROUTES = {
   MAIN: '/*',
 }
 
-const App = () => {
-  useEffect(() => {
-    console.log(process.env.REACT_APP_API)
-  }, [])
+const App: React.FC = ():JSX.Element => {
 
   return (
     <div className='App'>
