@@ -1,4 +1,4 @@
-export interface IGroupedData {
-	label: string;
-	values: number[];
+export type TGroupedData = {
+  label: string
+  values: number[]
 }

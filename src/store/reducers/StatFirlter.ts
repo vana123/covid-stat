@@ -1,52 +1,34 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IStat } from "../../types/stat";
-import { uniqBy, includes, slice } from "lodash";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { TStat } from '../../types/stat'
 
-interface IstatFilter {
-	statData: IStat[];
+type TstatFilter = {
+  statData: TStat[]
 }
 
-const initialState: IstatFilter = {
-	statData: [],
-};
+const initialState: TstatFilter = {
+  statData: [],
+}
 
 export const statFilterSlice = createSlice({
-	name: "statFilter",
-	initialState,
-	reducers: {
-		setStatData(state, action: PayloadAction<IStat[]>) {
-			state.statData = uniqBy(action.payload, "countryRegion");
-		},
-		filterStatData(
-			state,
-			action: PayloadAction<{ data: IStat[]; country: string }>
-		) {
-			state.statData = uniqBy(
-				action.payload.data
-					.filter((item) => {
-						return item.countryRegion
-							.toLowerCase()
-							.includes(action.payload.country.toLowerCase());
-					})
-					.slice(0, 15),
-				"countryRegion"
-			);
-		},
-		SelectCountry(
-			state,
-			action: PayloadAction<{ data: IStat[]; countrys: string[] }>
-		) {
-			state.statData = uniqBy(
-				action.payload.data.filter((item) => {
-					return includes(
-						action.payload.countrys,
-						item.countryRegion
-					);
-				}),
-				"countryRegion"
-			);
-		},
-	},
-});
+  name: 'statFilter',
+  initialState,
+  reducers: {
+    setStatData(state, action: PayloadAction<TStat[]>) {
+      state.statData = action.payload
+    },
+    filterStatData(state, action: PayloadAction<{ data: TStat[]; country: string }>) {
+      state.statData = action.payload.data
+        .filter((item) => {
+          return item.combinedKey.toLowerCase().includes(action.payload.country.toLowerCase())
+        })
+        .slice(0, 15)
+    },
+    SelectCountry(state, action: PayloadAction<{ data: TStat[]; countrys: string[] }>) {
+      state.statData = action.payload.data.filter((item) => {
+        return action.payload.countrys.includes(item.combinedKey)
+      })
+    },
+  },
+})
 
-export const statFilterReducer = statFilterSlice.reducer;
+export const statFilterReducer = statFilterSlice.reducer

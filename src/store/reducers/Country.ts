@@ -1,26 +1,26 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface dateState {
-	countryInput: string;
-	country: string;
+type dateState = {
+  countryInput: string
+  country: string
 }
 
 const initialState: dateState = {
-	country: "",
-	countryInput: "",
-};
+  country: '',
+  countryInput: '',
+}
 
 export const countrySlise = createSlice({
-	name: "country",
-	initialState,
-	reducers: {
-		inputChenge(state, action: PayloadAction<string>) {
-			state.countryInput = action.payload;
-		},
-		setCountry(state, action: PayloadAction<string>) {
-			state.country = action.payload;
-		},
-	},
-});
+  name: 'country',
+  initialState,
+  reducers: {
+    inputChenge(state, action: PayloadAction<string>) {
+      state.countryInput = action.payload
+    },
+    setCountry(state, action: PayloadAction<string>) {
+      state.country = action.payload
+    },
+  },
+})
 
-export const countryReducer = countrySlise.reducer;
+export const countryReducer = countrySlise.reducer

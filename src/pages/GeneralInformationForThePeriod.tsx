@@ -1,34 +1,59 @@
-import React, { useEffect } from "react";
-import { FormSelectDate } from "../components/FormSelectdate";
-import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { Charts } from "../components/Charts";
-import { countrySlise } from "../store/reducers/Country";
-import { BarCharts } from "../components/BarCharts";
-import { statFilterSlice } from "../store/reducers/StatFirlter";
-import { useGetStatQuery } from "../service/statService";
+import React, { useEffect } from 'react'
+import ReactLoading from 'react-loading';
 
-export const GeneralInformationForThePeriod = () => {
-	const dispatch = useAppDispatch();
-	const { country } = useAppSelector((state) => state.countryReducer);
-	const { date } = useAppSelector((state) => state.dateReducer);
-	const { isError, isLoading, data } = useGetStatQuery(date);
+import { useAppDispatch, useAppSelector } from '../hooks/redux'
+import { FormSelectDate } from '../components/FormSelectdate'
+import { BarCharts } from '../components/BarCharts'
+import { statFilterSlice } from '../store/reducers/StatFirlter'
+import { useGetStatQuery } from '../service/statService'
+import { COMBINED_KEY } from '../Constants/COUNTRIES'
 
-	useEffect(() => {
-		if (data) {
-			const countrys = ["Ukraine", "Poland", "United Kingdom", "Estonia"];
-			dispatch(statFilterSlice.actions.SelectCountry({ data, countrys }));
-		} else {
-			dispatch(statFilterSlice.actions.setStatData([]));
-		}
-	}, [data, country]);
+export const GeneralInformationForThePeriod: React.FC = (): JSX.Element => {
+  const dispatch = useAppDispatch()
+  const { country } = useAppSelector((state) => state.countryReducer)
+  const { date } = useAppSelector((state) => state.dateReducer)
+  const { isError, data, isLoading } = useGetStatQuery(date)
 
-	return (
-		<div className="GeneralInformationForThePeriod">
-			<div className="Form">
-				<FormSelectDate />
-			</div>
-			<Charts />
-			<BarCharts />
-		</div>
-	);
-};
+  useEffect(() => {
+    if (data) {
+      dispatch(statFilterSlice.actions.SelectCountry({ data, countrys: COMBINED_KEY }))
+    } else {
+      dispatch(statFilterSlice.actions.setStatData([]))
+    }
+  }, [data, country])
+
+  if(isLoading){
+    <div className='GeneralInformationForThePeriodCountri page'>
+        <div className='Form'>
+          <FormSelectDate />
+        </div>
+        <div className='loading'>
+          <ReactLoading color='#000000' />
+        </div>
+      </div>
+  }
+
+  if (isError) {
+    return (
+      <div className='GeneralInformationForThePeriod page'>
+        <div className='Form'>
+          <FormSelectDate />
+        </div>
+        <div className='error'>
+          <div>
+          <h1>No data is available at this date</h1>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className='GeneralInformationForThePeriod page'>
+      <div className='Form'>
+        <FormSelectDate />
+      </div>
+      <BarCharts />
+    </div>
+  )
+}

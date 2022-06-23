@@ -1,41 +1,60 @@
-import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { Charts } from "../components/Charts";
-import { countrySlise } from "../store/reducers/Country";
-import { dateSlise } from "../store/reducers/Date";
-import { BarCharts } from "../components/BarCharts";
-import { statFilterSlice } from "../store/reducers/StatFirlter";
-import { useGetStatQuery } from "../service/statService";
+import React, { useEffect } from 'react'
+import ReactLoading from 'react-loading';
 
-export const GeneralInformation = () => {
-	const dispatch = useAppDispatch();
-	const { country } = useAppSelector((state) => state.countryReducer);
-	const { date } = useAppSelector((state) => state.dateReducer);
-	const { isError, isLoading, data } = useGetStatQuery(date);
+import { useAppDispatch, useAppSelector } from '../hooks/redux'
+import { BarCharts } from '../components/BarCharts'
+import { countrySlise } from '../store/reducers/Country'
+import { dateSlise } from '../store/reducers/Date'
+import { statFilterSlice } from '../store/reducers/StatFirlter'
+import { useGetStatQuery } from '../service/statService'
+import { COMBINED_KEY } from '../Constants/COUNTRIES'
 
-	useEffect(() => {
-		const today = new Date();
-		dispatch(
-			dateSlise.actions.chengeInput(
-				`${today.getFullYear()}-${today.getMonth()}-${today.getDay()}`
-			)
-		);
-		dispatch(countrySlise.actions.setCountry(""));
-	}, []);
+export const GeneralInformation: React.FC = (): JSX.Element => {
+  const dispatch = useAppDispatch()
+  const { country } = useAppSelector((state) => state.countryReducer)
+  const { date } = useAppSelector((state) => state.dateReducer)
+  const { data, isError, isLoading } = useGetStatQuery(date)
 
-	useEffect(() => {
-		if (data) {
-			const countrys = ["Ukraine", "Poland", "United Kingdom", "Estonia"];
-			dispatch(statFilterSlice.actions.SelectCountry({ data, countrys }));
-		} else {
-			dispatch(statFilterSlice.actions.setStatData([]));
-		}
-	}, [data, country]);
+  useEffect(() => {
+    const today = new Date()
+    dispatch(
+      dateSlise.actions.setDate(
+        `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate() - 1}`,
+      ),
+    )
+    dispatch(countrySlise.actions.setCountry(''))
+  }, [])
 
-	return (
-		<div className="GeneralInformation">
-			<Charts />
-			<BarCharts />
-		</div>
-	);
-};
+  useEffect(() => {
+    if (data) {
+      dispatch(statFilterSlice.actions.SelectCountry({ data, countrys: COMBINED_KEY }))
+    } else {
+      dispatch(statFilterSlice.actions.setStatData([]))
+    }
+  }, [data, country])
+
+  if(isLoading){
+    <div className='GeneralInformationForThePeriodCountri page'>
+        <div className='Form'>
+        </div>
+        <div className='loading'>
+          <ReactLoading color='#000000' />
+        </div>
+      </div>
+  }
+
+  if (isError) {
+    return (
+      <div className='GeneralInformation'>
+        <div className='error'><h1>Немає даних на цю дату</h1></div>
+      </div>
+    )
+  }
+
+  return (
+    <div className='GeneralInformation page'>
+      <div className='Form'></div>
+      <BarCharts />
+    </div>
+  )
+}

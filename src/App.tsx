@@ -1,36 +1,43 @@
-import "devextreme/dist/css/dx.common.css";
-import "devextreme/dist/css/dx.light.css";
-import { GeneralInformation } from "./pages/GeneralInformation";
-import { GeneralInformationForThePeriod } from "./pages/GeneralInformationForThePeriod";
-import { GeneralInformationForThePeriodCountri } from "./pages/GeneralInformationForThePeriodСountry";
-import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
+import React from 'react'
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom'
 
-import "./Style.scss";
-import { BarCharts } from "./components/BarCharts";
+import { GeneralInformation } from './pages/GeneralInformation'
+import { GeneralInformationForThePeriod } from './pages/GeneralInformationForThePeriod'
+import { GeneralInformationForThePeriodCountri } from './pages/GeneralInformationForThePeriodСountry'
 
-function App() {
-	return (
-		<div className="App">
-			<BrowserRouter>
-				<nav className="NavBar">
-					<NavLink to="/*">Main</NavLink>
-					<NavLink to="/date">Date</NavLink>
-					<NavLink to="/country">Country</NavLink>
-				</nav>
-				<Routes>
-					<Route path="/*" element={<GeneralInformation />} />
-					<Route
-						path="/date"
-						element={<GeneralInformationForThePeriod />}
-					/>
-					<Route
-						path="/country"
-						element={<GeneralInformationForThePeriodCountri />}
-					/>
-				</Routes>
-			</BrowserRouter>
-		</div>
-	);
+import 'devextreme/dist/css/dx.common.css'
+import 'devextreme/dist/css/dx.light.css'
+import './Style.scss'
+
+const ROUTES = {
+  DATE: '/date',
+  COUNTRY: '/country',
+  MAIN: '/*',
 }
 
-export default App;
+const App: React.FC = (): JSX.Element => {
+  return (
+    <div className='App'>
+      <div className='container'>
+        <BrowserRouter>
+          <header>
+            <nav className='NavBar'>
+              <NavLink to={ROUTES.MAIN}>🔰Main</NavLink>
+              <NavLink to={ROUTES.DATE}>⌚Date</NavLink>
+              <NavLink to={ROUTES.COUNTRY}>🌆Region</NavLink>
+            </nav>
+          </header>
+          <div className='content'>
+            <Routes>
+              <Route path='/*' element={<GeneralInformation />} />
+              <Route path='/date' element={<GeneralInformationForThePeriod />} />
+              <Route path='/country' element={<GeneralInformationForThePeriodCountri />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </div>
+    </div>
+  )
+}
+
+export default App

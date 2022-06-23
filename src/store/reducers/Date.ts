@@ -1,27 +1,31 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { stat } from "fs";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface dateState {
-	date: string;
-	dateInput: string;
+type dateState = {
+  date: string
+  dateInput: string
 }
 
+const today = new Date()
 const initialState: dateState = {
-	date: "2022-05-01",
-	dateInput: "2022-05-01",
-};
+  date: `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()-1}`,
+  dateInput: `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()-1}`,
+}
 
 export const dateSlise = createSlice({
-	name: "date",
-	initialState,
-	reducers: {
-		chengeInput(state, action: PayloadAction<string>) {
-			state.dateInput = action.payload;
-		},
-		setDate(state) {
-			state.date = state.dateInput;
-		},
-	},
-});
+  name: 'date',
+  initialState,
+  reducers: {
+    chengeInput(state, action: PayloadAction<string>) {
+      state.dateInput = action.payload
+    },
+    setDate(state, action: PayloadAction<string>) {
+      if(action.payload){
+        state.date = action.payload
+      }else{
+        state.date = state.dateInput
+      }
+    },
+  },
+})
 
-export const dateReducer = dateSlise.reducer;
+export const dateReducer = dateSlise.reducer
