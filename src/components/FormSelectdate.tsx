@@ -10,7 +10,7 @@ export const FormSelectDate: React.FC = (): JSX.Element => {
   const [value] = useDebounce(dateInput, 500)
 
   useEffect(() => {
-    dispatch(dateSlise.actions.setDate())
+    dispatch(dateSlise.actions.setDate(''))
   }, [value])
 
   const handleChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {

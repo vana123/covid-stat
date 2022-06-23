@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom'
 
 import { GeneralInformation } from './pages/GeneralInformation'
@@ -15,8 +15,7 @@ const ROUTES = {
   MAIN: '/*',
 }
 
-const App: React.FC = ():JSX.Element => {
-
+const App: React.FC = (): JSX.Element => {
   return (
     <div className='App'>
       <div className='container'>

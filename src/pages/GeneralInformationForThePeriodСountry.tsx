@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 
 import { FormSelectCountry } from '../components/FormSelectCountry'
 import { FormSelectDate } from '../components/FormSelectdate'
-import { Charts } from '../components/Charts'
 import { BarCharts } from '../components/BarCharts'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { statFilterSlice } from '../store/reducers/StatFirlter'
@@ -12,7 +11,7 @@ export const GeneralInformationForThePeriodCountri: React.FC = (): JSX.Element =
   const dispatch = useAppDispatch()
   const { country } = useAppSelector((state) => state.countryReducer)
   const { date } = useAppSelector((state) => state.dateReducer)
-  const { data } = useGetStatQuery(date)
+  const { data, isError } = useGetStatQuery(date)
 
   useEffect(() => {
     if (data) {
@@ -23,13 +22,23 @@ export const GeneralInformationForThePeriodCountri: React.FC = (): JSX.Element =
     }
   }, [data, country])
 
-  return (
+  if(isError){
     <div className='GeneralInformationForThePeriodCountri'>
       <div className='Form'>
         <FormSelectDate />
         <FormSelectCountry />
       </div>
-      <Charts />
+      <div className='error'><h1>Немає даних на цю дату</h1></div>
+    </div>
+  }
+
+  return (
+    <div className='GeneralInformationForThePeriodCountri page'>
+      <div className='Form'>
+        <FormSelectDate />
+        <FormSelectCountry />
+      </div>
+      
       <BarCharts />
     </div>
   )

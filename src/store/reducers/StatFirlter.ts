@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { TStat } from '../../types/stat'
 
-
 type TstatFilter = {
   statData: TStat[]
 }

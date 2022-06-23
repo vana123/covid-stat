@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
-import { Charts } from '../components/Charts'
 import { BarCharts } from '../components/BarCharts'
 import { countrySlise } from '../store/reducers/Country'
 import { dateSlise } from '../store/reducers/Date'
@@ -13,12 +12,14 @@ export const GeneralInformation: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const { country } = useAppSelector((state) => state.countryReducer)
   const { date } = useAppSelector((state) => state.dateReducer)
-  const { data } = useGetStatQuery(date)
+  const { data, isError } = useGetStatQuery(date)
 
   useEffect(() => {
     const today = new Date()
     dispatch(
-      dateSlise.actions.chengeInput(`${today.getFullYear()}-${today.getMonth()}-${today.getDate()-1}`),
+      dateSlise.actions.setDate(
+        `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate() - 1}`,
+      ),
     )
     dispatch(countrySlise.actions.setCountry(''))
   }, [])
@@ -31,9 +32,17 @@ export const GeneralInformation: React.FC = (): JSX.Element => {
     }
   }, [data, country])
 
+  if (isError) {
+    return (
+      <div className='GeneralInformation'>
+        <div className='error'><h1>Немає даних на цю дату</h1></div>
+      </div>
+    )
+  }
+
   return (
-    <div className='GeneralInformation'>
-      <Charts />
+    <div className='GeneralInformation page'>
+      <div className='Form'></div>
       <BarCharts />
     </div>
   )

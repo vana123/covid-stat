@@ -7,8 +7,8 @@ type dateState = {
 
 const today = new Date()
 const initialState: dateState = {
-  date: `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`,
-  dateInput: `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`,
+  date: `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()-1}`,
+  dateInput: `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()-1}`,
 }
 
 export const dateSlise = createSlice({
@@ -18,8 +18,12 @@ export const dateSlise = createSlice({
     chengeInput(state, action: PayloadAction<string>) {
       state.dateInput = action.payload
     },
-    setDate(state) {
-      state.date = state.dateInput
+    setDate(state, action: PayloadAction<string>) {
+      if(action.payload){
+        state.date = action.payload
+      }else{
+        state.date = state.dateInput
+      }
     },
   },
 })

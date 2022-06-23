@@ -21,8 +21,7 @@ export const OPTIONS = {
       position: 'top' as const,
     },
     title: {
-      display: true,
-      text: 'Covid',
+      
     },
   },
 }
@@ -61,5 +60,9 @@ export const BarCharts: React.FC = (): JSX.Element => {
     ],
   }
 
-  return <Bar options={OPTIONS} data={DataChart} />
+  return (
+    <div className="chart">
+      <Bar options={OPTIONS} data={DataChart} />
+    </div>
+  )
 }
