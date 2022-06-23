@@ -18,7 +18,7 @@ export const FormSelectDate: React.FC = (): JSX.Element => {
   }
 
   return (
-    <div className='FormSelectDate'>
+    <div className='Form__SelectDate'>
       <input type='date' pattern='\d{4}-\d{2}-\d{2}' value={date} onChange={handleChangeDate} />
     </div>
   )

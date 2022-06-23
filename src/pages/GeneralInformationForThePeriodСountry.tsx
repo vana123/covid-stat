@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import ReactLoading from 'react-loading';
 
 import { FormSelectCountry } from '../components/FormSelectCountry'
 import { FormSelectDate } from '../components/FormSelectdate'
@@ -11,7 +12,7 @@ export const GeneralInformationForThePeriodCountri: React.FC = (): JSX.Element =
   const dispatch = useAppDispatch()
   const { country } = useAppSelector((state) => state.countryReducer)
   const { date } = useAppSelector((state) => state.dateReducer)
-  const { data, isError } = useGetStatQuery(date)
+  const { data, isError, isLoading } = useGetStatQuery(date)
 
   useEffect(() => {
     if (data) {
@@ -22,14 +23,28 @@ export const GeneralInformationForThePeriodCountri: React.FC = (): JSX.Element =
     }
   }, [data, country])
 
-  if(isError){
-    <div className='GeneralInformationForThePeriodCountri'>
-      <div className='Form'>
-        <FormSelectDate />
-        <FormSelectCountry />
+  if(isLoading){
+    <div className='GeneralInformationForThePeriodCountri page'>
+        <div className='Form'>
+          <FormSelectDate />
+          <FormSelectCountry />
+        </div>
+        <div className='loading'>
+          <ReactLoading color='#000000' />
+        </div>
       </div>
-      <div className='error'><h1>Немає даних на цю дату</h1></div>
-    </div>
+  }
+
+  if (isError) {
+    return (
+      <div className='GeneralInformationForThePeriodCountri page'>
+        <div className='Form'>
+          <FormSelectDate />
+          <FormSelectCountry />
+        </div>
+        <div className='error'><h1>No data is available at this date</h1></div>
+      </div>
+    )
   }
 
   return (

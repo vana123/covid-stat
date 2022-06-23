@@ -55,3 +55,39 @@
 	padding: 0 5px;
 	box-shadow:  0px 0px 5px rgba(0, 0, 0, 0.471);
 }
+
+.error{
+	display: flex;
+	align-items: center;
+	min-height: calc(100vh - 80px);
+}
+
+@media screen and (max-width: 992px) {
+	.chart{
+		width: 85%;
+	}
+}
+  
+@media screen and (max-width: 600px) {
+	.chart{
+		width: 95%;
+	}
+
+	.Form{
+		width: 100%;
+		justify-content: flex-start;
+		&__SelectCountry {
+			width: 80%;
+			input{
+				width: 100%;
+			}
+		}
+		&__SelectDate{
+			width: 20%;
+			input{
+				width: 100%;
+			}
+		}
+	}
+
+}

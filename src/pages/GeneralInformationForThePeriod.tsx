@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import ReactLoading from 'react-loading';
 
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { FormSelectDate } from '../components/FormSelectdate'
@@ -11,7 +12,7 @@ export const GeneralInformationForThePeriod: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const { country } = useAppSelector((state) => state.countryReducer)
   const { date } = useAppSelector((state) => state.dateReducer)
-  const { isError, data } = useGetStatQuery(date)
+  const { isError, data, isLoading } = useGetStatQuery(date)
 
   useEffect(() => {
     if (data) {
@@ -21,13 +22,28 @@ export const GeneralInformationForThePeriod: React.FC = (): JSX.Element => {
     }
   }, [data, country])
 
-  if (isError) {
-    return (
-      <div className='GeneralInformationForThePeriod'>
+  if(isLoading){
+    <div className='GeneralInformationForThePeriodCountri page'>
         <div className='Form'>
           <FormSelectDate />
         </div>
-        <div className='error'><h1>Немає даних на цю дату</h1></div>
+        <div className='loading'>
+          <ReactLoading color='#000000' />
+        </div>
+      </div>
+  }
+
+  if (isError) {
+    return (
+      <div className='GeneralInformationForThePeriod page'>
+        <div className='Form'>
+          <FormSelectDate />
+        </div>
+        <div className='error'>
+          <div>
+          <h1>No data is available at this date</h1>
+          </div>
+        </div>
       </div>
     )
   }

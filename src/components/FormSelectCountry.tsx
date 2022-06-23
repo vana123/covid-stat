@@ -18,7 +18,7 @@ export const FormSelectCountry: React.FC = (): JSX.Element => {
   }, [value])
 
   return (
-    <div className='FormSelectCountry'>
+    <div className='Form__SelectCountry'>
       <input type='text' value={countryInput} onChange={handleChangeCountry} placeholder={'🔎'} />
     </div>
   )

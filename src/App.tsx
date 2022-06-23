@@ -22,9 +22,9 @@ const App: React.FC = (): JSX.Element => {
         <BrowserRouter>
           <header>
             <nav className='NavBar'>
-              <NavLink to={ROUTES.MAIN}>Main</NavLink>
-              <NavLink to={ROUTES.DATE}>Date</NavLink>
-              <NavLink to={ROUTES.COUNTRY}>Country</NavLink>
+              <NavLink to={ROUTES.MAIN}>🔰Main</NavLink>
+              <NavLink to={ROUTES.DATE}>⌚Date</NavLink>
+              <NavLink to={ROUTES.COUNTRY}>🌆Region</NavLink>
             </nav>
           </header>
           <div className='content'>

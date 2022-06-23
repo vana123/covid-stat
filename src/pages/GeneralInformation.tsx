@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import ReactLoading from 'react-loading';
 
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { BarCharts } from '../components/BarCharts'
@@ -12,7 +13,7 @@ export const GeneralInformation: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const { country } = useAppSelector((state) => state.countryReducer)
   const { date } = useAppSelector((state) => state.dateReducer)
-  const { data, isError } = useGetStatQuery(date)
+  const { data, isError, isLoading } = useGetStatQuery(date)
 
   useEffect(() => {
     const today = new Date()
@@ -31,6 +32,16 @@ export const GeneralInformation: React.FC = (): JSX.Element => {
       dispatch(statFilterSlice.actions.setStatData([]))
     }
   }, [data, country])
+
+  if(isLoading){
+    <div className='GeneralInformationForThePeriodCountri page'>
+        <div className='Form'>
+        </div>
+        <div className='loading'>
+          <ReactLoading color='#000000' />
+        </div>
+      </div>
+  }
 
   if (isError) {
     return (
